@@ -1,16 +1,10 @@
 plugins {
-	// JVM target environment
-    kotlin("jvm") version "2.1.20"
-
-	// opens classes and methods annotated with Spring annotations
-    kotlin("plugin.spring") version "2.1.20"
-
-	id("org.springframework.boot") version "3.4.5"
+    alias(libs.plugins.jvm)
+    alias(libs.plugins.spring)
+    alias(libs.plugins.jpa)
+    alias(libs.plugins.allopen)
+    alias(libs.plugins.springBoot)
     id("io.spring.dependency-management") version "1.1.7"
-
-    // use Kotlin non-nullable properties with JPA.
-    // Generates no-arg constructors for @Entity, @MappedSuperclass and @Embeddable.
-    kotlin("plugin.jpa") version "2.1.20"
 }
 
 group = "training.spring"
@@ -29,23 +23,17 @@ repositories {
 }
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    implementation("org.springframework.boot:spring-boot-starter-mustache")
-    implementation("org.springframework.boot:spring-boot-starter-web")
-
+    implementation(libs.bundles.springBootStarterWebApp)
     // Support for SerDe of Kotlin classes and data classes
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-
     implementation("org.jetbrains.kotlin:kotlin-reflect")
-    developmentOnly("org.springframework.boot:spring-boot-devtools")
+
+    developmentOnly(libs.springBootDevtools)
     runtimeOnly("com.h2database:h2")
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation(libs.springBootStarterTest)
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
-
-
-
 
 kotlin {
     jvmToolchain(23)

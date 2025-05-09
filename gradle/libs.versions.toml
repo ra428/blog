@@ -1,0 +1,37 @@
+[versions]
+kotlin = "2.1.20"
+spring-boot = "3.4.5"
+spring = "6.2.6"
+
+
+[libraries]
+springBootStarterWeb = { module = "org.springframework.boot:spring-boot-starter-web", version.ref = "spring-boot" }
+springBootStarterMustache = { module = "org.springframework.boot:spring-boot-starter-mustache", version.ref = "spring-boot" }
+springBootStarterDataJpa = { module = "org.springframework.boot:spring-boot-starter-data-jpa", version.ref = "spring-boot" }
+
+springBootDevtools = { module = "org.springframework.boot:spring-boot-devtools", version.ref = "spring-boot" }
+springBootStarterTest = { module = "org.springframework.boot:spring-boot-starter-test", version.ref = "spring-boot" }
+
+
+
+[bundles]
+springBootStarterWebApp = ["springBootStarterWeb", "springBootStarterMustache", "springBootStarterDataJpa"]
+
+
+
+[plugins]
+# JVM target environment
+jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+
+# opens classes and methods annotated with Spring annotations
+spring = { id = "org.jetbrains.kotlin.plugin.spring", version.ref = "kotlin" }
+
+# use Kotlin non-nullable properties with JPA.
+# Generates no-arg constructors for @Entity, @MappedSuperclass and @Embeddable.
+jpa = { id = "org.jetbrains.kotlin.plugin.jpa", version.ref = "kotlin" }
+
+# Open entities in order to make lazy fetching work
+# https://youtrack.jetbrains.com/issue/KT-28525
+allopen = { id = "org.jetbrains.kotlin.plugin.allopen", version.ref = "kotlin" }
+
+springBoot = { id = "org.springframework.boot", version.ref = "spring-boot" }
