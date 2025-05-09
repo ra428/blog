@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.allopen)
     alias(libs.plugins.springBoot)
     id("io.spring.dependency-management") version "1.1.7"
+    kotlin("kapt") version "1.9.22"
 }
 
 group = "training.spring"
@@ -27,10 +28,16 @@ dependencies {
     // Support for SerDe of Kotlin classes and data classes
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
+    kapt("org.springframework.boot:spring-boot-configuration-processor")
 
     developmentOnly(libs.springBootDevtools)
     runtimeOnly("com.h2database:h2")
-    testImplementation(libs.springBootStarterTest)
+    testImplementation(libs.springBootStarterTest) {
+        exclude(module = "mockito-core")
+    }
+    testImplementation("org.junit.jupiter:junit-jupiter-api")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+    testImplementation("com.ninja-squad:springmockk:4.0.2")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
